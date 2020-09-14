@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btn").click(function () {
+                var prod = new Object();
+                prod.ProductName = $("#txtpname").val();
+                prod.categoryID = $("#txtcid").val();
+                prod.price = $("#txtprice").val();
+                $.ajax({
+                    url: 'http://localhost:63294/api/ProductCategory',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: prod,
+                    success: function (data) {
+                        alert(data);
+                        window.location.replace("http://localhost:58294/SelectByID.html");
+                    },
+                    error: function (err) {
+                        alert(err);
+                    },
+                });
+            }); 
+        });
+    </script>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <td>Enter Name</td>
+            <td><input type="text" id="txtpname" required/></td>
+        </tr>
+        <tr>
+            <td>Enter Category Id</td>
+            <td><input type="text" id="txtcid" required/></td>
+        </tr>
+        <tr>
+            <td>Enter Price</td>
+            <td><input type="number" id="txtprice" required/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" id="btn" /></td>
+        </tr>
+    </table>
+</body>
+</html>

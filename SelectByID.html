@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+       $(document).ready(function () {
+            $("#btnID").click(function () {
+                var pid = parseInt($("#txtid").val());
+                $.ajax({
+                    url: 'http://localhost:63294/api/ProductCategory/' + pid,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        alert(data.ProdName+ "," + data.CatName + "," + data.Price);
+                        $("#txtpname").val(data.ProdName);
+                        $("#txtcname").val(data.CatName);
+                        $("#txtprice").val(data.Price);
+                    },
+                    error: function (err) {
+                        alert(err)
+                    }
+                });
+            });
+
+           $("#btnupdate").click(function () {
+               var obj = new Object();
+               //the values of obj.<> should be as per the column names of the table
+               var pid = parseInt($("#txtid").val());
+               obj.ProductName = $("#txtpname").val();
+               obj.price = $("#txtprice").val();
+               alert(obj.ProductName + "," + obj.price);
+               $.ajax({
+                   url: 'http://localhost:63294/api/ProductCategory/' + pid,
+                   method: 'PUT',
+                   dataType: 'json',
+                   data: obj,
+                   success: function (data) {
+                       alert("helllo");
+                   },
+                   error: function (err) {
+                       alert(err);
+                   }
+
+               });//.ajax
+           });//btnUpdate
+
+           $("#btndelet").click(function () {
+        
+               //the values of obj.<> should be as per the column names of the table
+               var pid = parseInt($("#txtid").val());
+             
+               $.ajax({
+                   url: 'http://localhost:63294/api/ProductCategory/' + pid,
+                   method: 'DELETE',
+                   dataType: 'json',
+                   success: function (data,status,xhr) {
+                       alert("Success: " + xhr.status + " : " + xhr.statusText);
+                   },
+                   error: function (err) {
+                       alert(err);
+                   }
+
+               });//.ajax
+           });//btndelet
+
+        });
+    </script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Enter Product Id</td>
+            <td><input type="number" id="txtid" /></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" id="btnID" value="Show"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Product Name</td>
+            <td><input type="text" id="txtpname" /></td>
+        </tr>
+        <tr>
+            <td>Category Name</td>
+            <td><input type="text" id="txtcname" readonly/></td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td><input type="number" id="txtprice" /></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" id="btnupdate" value="Update" />
+            </td>
+            <td>
+                <input type="button" id="btndelet" value="Delete" />
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

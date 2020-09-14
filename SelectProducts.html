@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#b1").click(function () {
+                $.ajax({
+                    url: 'http://localhost:63294/api/ProductCategory',
+                    method: 'GET',
+                    dataType: 'Json',
+                    success: function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            $("#t1").append("<tr><td>" + data[i].ProdID + "</td><td>" + data[i].ProdName + "</td><td>" + data[i].CatName + "</td><td>" + data[i].Price+"</td></tr>");
+                        }
+                    },
+                    error: function (err) {
+                        document.write(err);
+                    },
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="button" id="b1" value="show Prodect" />
+    <table id="t1" border="1">
+
+    </table>
+</body>
+</html>
